@@ -1,0 +1,32 @@
+from django.shortcuts import render, redirect
+from .models import Member
+from django.http import HttpResponse
+
+
+def index(request):
+    mem=Member.objects.all()
+    return render(request, "myapp/index.html",{'mem':mem})
+
+def add(request):
+    return render(request, 'myapp/add.html')
+
+
+def addrec(request):
+    x=request.POST['first']
+    y=request.POST['first']
+    z=request.POST['first']
+    mem=Member(firstname=x,lastname=y,country=z)
+    mem.save()
+    return redirect("/index")
+
+
+def delete(request, id):
+    print(f"Trying to delete Member with ID: {id}")  # Debugging line
+    mem = Member.objects.get(id=id)
+    mem.delete()
+    return redirect('/index')
+
+
+
+
+
