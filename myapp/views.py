@@ -13,8 +13,8 @@ def add(request):
 
 def addrec(request):
     x=request.POST['first']
-    y=request.POST['first']
-    z=request.POST['first']
+    y=request.POST['last']
+    z=request.POST['country']
     mem=Member(firstname=x,lastname=y,country=z)
     mem.save()
     return redirect("/index")
@@ -26,6 +26,23 @@ def delete(request, id):
     mem.delete()
     return redirect('/index')
 
+def update(request, id):
+    print(f"Trying to update Member with ID: {id}")  # Debugging line
+    mem = Member.objects.get(id=id)
+    return render(request, 'myapp/update.html',{'mem':mem})
+
+    
+def uprec(request,id):
+    print("check uprec")
+    x=request.POST['first']
+    y=request.POST['last']
+    z=request.POST['country'] 
+    mem=Member.objects.get(id=id)
+    mem.firstname=x
+    mem.lastname=y
+    mem.country=z
+    mem.save()
+    return redirect('/index')
 
 
 
